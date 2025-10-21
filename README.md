@@ -11,15 +11,19 @@
 - 開発ツール：Vite, npm, git
 
 ## 機能要件
-1 アカウント登録機能
-2 ログイン機能
-3 フレンド登録機能
-4 タイマー機能
+1 アカウント登録機能  
+2 ログイン機能  
+3 フレンド登録機能  
+4 タイマー機能  
 
 ## ディレクトリ構造
-effort-share/
-├─ frontend/                  # React(TypeScript)フロントエンド
-│  ├─ src/
+### フロントエンド+Supabase→今のところこれでいい  
+- supabase = BaaS(Backend as a Service)  
+
+```
+effort-share/  
+├─ frontend/                  # React(TypeScript)フロントエンド  
+│  ├─ src/  
 │  │  ├─ components/          # UIコンポーネント群
 │  │  ├─ pages/               # ページ単位 (React Routerでルーティング)
 │  │  ├─ hooks/               # カスタムフック(useTimerなど)
@@ -32,7 +36,11 @@ effort-share/
 │  ├─ public/                 # index.html など静的ファイル
 │  ├─ vite.config.ts
 │  └─ tsconfig.json
-│
+```
+
+### バックエンド→今のところいらない ↓見なくていい
+
+```
 ├─ backend/                   # Node.js(TypeScript)バックエンド
 │  ├─ src/
 │  │  ├─ server.ts            # メインサーバー（Express or Fastify）
@@ -58,4 +66,5 @@ effort-share/
 ├─ .gitignore
 ├─ package.json               # 全体管理用（npm workspace対応）
 └─ README.md
+```
 
