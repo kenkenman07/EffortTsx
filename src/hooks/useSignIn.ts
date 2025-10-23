@@ -1,22 +1,27 @@
-import { signIn } from "../services/index"
+import { signIn, selectEmailByName } from "../services/index"
 import { useState } from 'react'
-import { AuthError } from "@supabase/supabase-js"
+//import { AuthError } from "@supabase/supabase-js"
+
 
 const useSignIn = () => {
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [errorMessage, setErrorMessage] = useState<string | null> (null)
 
-    const handleSignIn = async (email: string, password: string) => {
+    const handleSignIn = async (username: string, password: string) => {
         setLoading(true)
+        let step: "signIn" | "select" = "select"
         try {
-            //console.log(email)
-            //console.log(password)
+            const email = await selectEmailByName(username)
+            if(!email) throw new Error("メールアドレスの取得に失敗")
+
+            step = "signIn"
             await signIn(email, password)
             setSuccess(true)
         } catch(error: unknown) {
-            if(error instanceof AuthError) console.log(error.message)
-            setErrorMessage("ログインエラー")
+            if(step === "select") setErrorMessage("メールアドレスセレクトエラー")
+            //if(error instanceof AuthError) console.log(error.message)
+            else setErrorMessage("ログインエラー")
         } finally {
             setLoading(false)
         }

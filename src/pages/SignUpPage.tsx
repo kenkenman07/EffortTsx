@@ -6,6 +6,7 @@ const SignUpPage = () => {
     const { handleSignUp, loading, errorMessage, success } = useSignUp()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [username, setUsername] = useState("")
 
     const navigate = useNavigate()
 
@@ -16,9 +17,10 @@ const SignUpPage = () => {
     return (
         <>
             <h1>アカウント登録ページ</h1>
-            <form onSubmit={(e) => {e.preventDefault(); handleSignUp(email, password)}} >
+            <form onSubmit={(e) => {e.preventDefault(); handleSignUp(email, password, username)}} >
                 <input value={email} placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
                 <input value={password} placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
+                <input value={username} placeholder="名前" onChange={(e) => setUsername(e.target.value)} />
 
                 <button disabled={loading}>
                     {loading ? "登録中..." : "サインアップ"}

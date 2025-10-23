@@ -6,7 +6,6 @@
 ## 開発環境・技術構成
 - フロントエンド：React(TypeScript)
 - バックエンド：Node.js(TypeScript)
-- 通信：Socket.IO
 - データベース：Supabase(PostgreSQL + Auth)
 - 開発ツール：Vite, npm, git
 

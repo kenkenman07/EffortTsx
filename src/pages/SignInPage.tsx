@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
     const { handleSignIn, loading, errorMessage, success } = useSignIn()
-    const [email, setEmail] = useState("")
+    const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     
     const navigate = useNavigate()
@@ -16,8 +16,8 @@ const SignInPage = () => {
     return (
         <>
         <h1>ログインページ</h1>
-            <form onSubmit={(e) => {e.preventDefault(); handleSignIn(email, password)}} >
-                <input value={email} placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
+            <form onSubmit={(e) => {e.preventDefault(); handleSignIn(username, password)}} >
+                <input value={username} placeholder="名前" onChange={(e) => setUsername(e.target.value)} />
                 <input value={password} placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
 
                 <button disabled={loading}>
