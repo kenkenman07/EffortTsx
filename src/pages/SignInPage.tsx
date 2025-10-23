@@ -14,16 +14,20 @@ const SignInPage = () => {
     }, [success, navigate])
 
     return (
-        <form onSubmit={(e) => {e.preventDefault(); handleSignIn(email, password)}} >
-            <input value={email} placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
-            <input value={password} placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
+        <>
+        <h1>ログインページ</h1>
+            <form onSubmit={(e) => {e.preventDefault(); handleSignIn(email, password)}} >
+                <input value={email} placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
+                <input value={password} placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
 
-            <button disabled={loading}>
-                {loading ? "ログイン中" : "ログイン"}
-            </button>
-            
-            {errorMessage && <p>{errorMessage}</p>} 
-        </form>
+                <button disabled={loading}>
+                    {loading ? "ログイン中" : "ログイン"}
+                </button>
+                
+                {errorMessage && <p>{errorMessage}</p>} 
+            </form>
+            <button onClick={() => navigate("/signup")}>アカウント登録がまだの方はこちら</button>
+        </>
     )
 }
 export default SignInPage

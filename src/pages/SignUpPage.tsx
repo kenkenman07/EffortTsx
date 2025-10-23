@@ -14,16 +14,21 @@ const SignUpPage = () => {
     }, [success, navigate])
 
     return (
-        <form onSubmit={(e) => {e.preventDefault(); handleSignUp(email, password)}} >
-            <input value={email} placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
-            <input value={password} placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
+        <>
+            <h1>アカウント登録ページ</h1>
+            <form onSubmit={(e) => {e.preventDefault(); handleSignUp(email, password)}} >
+                <input value={email} placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
+                <input value={password} placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
 
-            <button disabled={loading}>
-                {loading ? "登録中..." : "サインアップ"}
-            </button>
-            {success && <p>アカウントの登録が完了しました</p>}
-            {errorMessage && <p>{errorMessage}</p>} 
-        </form>
+                <button disabled={loading}>
+                    {loading ? "登録中..." : "サインアップ"}
+                </button>
+                {success && <p>アカウントの登録が完了しました</p>}
+                {errorMessage && <p>{errorMessage}</p>} 
+            </form>
+
+            <button onClick={() => navigate("/")}>アカウント登録がお済である方はこちら</button>
+        </>
     )
 }
 export default SignUpPage
