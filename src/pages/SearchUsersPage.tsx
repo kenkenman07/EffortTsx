@@ -25,7 +25,7 @@ const SearchUsersPage = () =>{
                 ))}
                 </ul>
             )} 
-            {!loading && users.length > 0 && !errorMessage && (
+            {!loading && users.length === 0 && !errorMessage && (
                 <p>ユーザが見つかりません</p>
             )}
 
