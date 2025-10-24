@@ -1,9 +1,11 @@
 import { useSelectUsername } from "../hooks/index"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const SearchUsersPage = () =>{
     const { handleSelectUser, users, loading, errorMessage } = useSelectUsername()
     const [username, setUsername] = useState("")
+    const navigate = useNavigate()
 
     return (
         <>
@@ -28,6 +30,9 @@ const SearchUsersPage = () =>{
             {!loading && users.length === 0 && !errorMessage && (
                 <p>ユーザが見つかりません</p>
             )}
+
+            <button onClick={() => navigate('/dash')}>ダッシュボードページ</button>
+
 
         </>
     )
