@@ -3,3 +3,5 @@ export type profileRow = {
     user: string,
     email: string
 }
+
+export type rowData = Record<string, string>
