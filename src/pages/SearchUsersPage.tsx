@@ -34,7 +34,7 @@ const SearchUsersPage = () =>{
                             handleSend(u) 
                             setSentUsers((prev) => [...prev, u])
                             }}>
-                            {sendLoading ? "申請中" : "フレンド申請"}
+                            {sendLoading ? "申請中..." : "フレンド申請"}
                             </button> )
                         }
                     </li>

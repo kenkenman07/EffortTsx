@@ -1,17 +1,17 @@
-import { recvFriendRequests } from "../hooks/index"
+import { makeFriends, recvFriendRequests } from "../hooks/index"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 
 const SearchRequestsPage = () =>{
-    //const { handleSelectUser, users, loading: selectLoading, errorMessage: selectErrorMessage } = useSelectUsername()
+    const { handleMakeFriends, loading: acceptLoading, errorMessage: acceptErrorMessage } = makeFriends()
     const { handleRecv, loading: recvLoading, errorMessage: recvErrorMessage, users: recvUsers } = recvFriendRequests()
-    const [username, setUsername] = useState("")
+    //const [username, setUsername] = useState("")
     const [sentUsers, setSentUsers] = useState<string[]>([])
     const navigate = useNavigate()
 
     useEffect(() => {
-    handleRecv(); 
+        handleRecv(); 
     }, []);
 
     return (
@@ -21,7 +21,7 @@ const SearchRequestsPage = () =>{
 
             {recvLoading && <p>検索中...</p>}
         
-            {recvErrorMessage && <p>{recvErrorMessage}</p>}
+            {recvErrorMessage && <p>{acceptErrorMessage}</p>}
 
             
             {recvUsers.length > 0 && (
@@ -29,14 +29,23 @@ const SearchRequestsPage = () =>{
                 {recvUsers.map((u, i) => (
                     <li key={i} >
                         {u}
-            
+                        {sentUsers.includes(u) ? ( 
+                        <button disabled>承認済み</button> 
+                        ) : ( 
+                        <button onClick={async () => {
+                            handleMakeFriends(u) 
+                            setSentUsers((prev) => [...prev, u])
+                            }}>
+                            {acceptLoading ? "申請中..." : "承認"}
+                            </button> )
+                        }
                     </li>
                 ))}
                 </ul>
 
             )} 
 
-           
+            {acceptErrorMessage && <p>{acceptErrorMessage}</p>}           
 
 
             {!recvLoading && recvUsers.length === 0 && !recvErrorMessage && (
