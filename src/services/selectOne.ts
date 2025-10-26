@@ -1,9 +1,9 @@
 import { supabase } from "./makeSupabase";
-import type { selectOptions, SupabaseResponseOne } from "../types/db";
+import type { selectOptions, PostgrestSingleResponse } from "../types/db";
 
 
 const selectOne = async ({ table, column, eqKey, eqVal }: selectOptions): Promise<Record<string, string> | null> => {
-    const result: SupabaseResponseOne = await supabase
+    const result: PostgrestSingleResponse<Record<string, string>> = await supabase
         .from(table)
         .select(column)
         .eq(eqKey, eqVal)

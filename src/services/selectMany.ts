@@ -1,17 +1,16 @@
 import { supabase } from "./makeSupabase";
 import type { selectOptions } from "../types/db";
+import type { PostgrestResponse } from "@supabase/supabase-js";
 
-const selectOne = async ({ table, column, eqKey, eqVal }: selectOptions): Promise<string[]> => {
-    let query = supabase
+const selectMany = async ({ table, column, eqKey, eqVal }: selectOptions): Promise<Record<string, string>[] |null> => {
+    const result = (await supabase
         .from(table)
         .select(column)
-        .eq(eqKey, eqVal)
+        .eq(eqKey, eqVal)) as unknown as PostgrestResponse<Record<string, string>>;
        
-
-    const { data, error } = await query
-    if(error) throw error
-    return data ?? []
+    if(result.error) throw result.error
+    return result.data ?? []
         
 
 }
-export default selectOne
+export default selectMany

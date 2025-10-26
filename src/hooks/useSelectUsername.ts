@@ -1,4 +1,5 @@
-import { selectUsernameByName } from "../services/index";
+//import type { PostgrestResponse } from "@supabase/supabase-js";
+import { selectMany } from "../services/index";
 import { useState } from "react";
 
 const useSelectUsername = () => {
@@ -10,8 +11,18 @@ const useSelectUsername = () => {
         setLoading(true)
 
         try {
-            const data = await selectUsernameByName(username)
-            setUsers(data)
+            const data: Record<string, string>[]  | null = await selectMany({ 
+                table: 'profiles',
+                column: 'username', 
+                eqKey: 'username',
+                eqVal: username, 
+            })
+
+            if(data && data.length > 0) {
+                setUsers(data.map(row => row.username))
+            } else {
+                setUsers([])
+            }
 
         } catch(error) {
             setErrorMessage("ユーザ検索エラー")

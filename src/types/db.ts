@@ -22,3 +22,16 @@ export type SupabaseResponseOne = {
   data: Record<string, string> | null
   error: PostgrestError | null
 }
+
+export type PostgrestSingleResponse<T> = {
+  data: T | null;
+  error: PostgrestError | null;
+};
+
+
+
+
+export type SupabaseResponseTwo = {
+  data: Record<string, string>[] | null
+  error: PostgrestError | null
+}
