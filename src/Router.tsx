@@ -5,6 +5,7 @@ import SignUpPage from './pages/SignUpPage'
 import SignInPage from './pages/SignInPage'
 import useGetSession from './hooks/useGetSession'
 import SearchUsersPage from './pages/SearchUsersPage'
+import SearchRequestsPage from './pages/SearchRequestsPage'
 
 const ProtectedChildren = (props: {children: React.ReactNode})  => {
     const {user, loading} = useGetSession()
@@ -32,6 +33,7 @@ const Router = () => {
 
                 <Route path='/dash' element={<DashboardPage />} />
                 <Route path='/searuser' element={<SearchUsersPage />} />
+                <Route path='/searreq' element={<SearchRequestsPage />} />
 
                 
 

@@ -8,7 +8,8 @@ const DashboardPage = () => {
             <h1>ダッシュボード</h1>
 
             <button onClick={() => navigate('/searuser')}>ユーザ検索ページ</button>
-            <div>黙れ</div>
+            <button onClick={() => navigate('/searreq')}>フレンド申請管理ボックス</button>
+            
         </>
     )
 }

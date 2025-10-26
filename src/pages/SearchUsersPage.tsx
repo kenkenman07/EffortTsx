@@ -1,10 +1,12 @@
-import { useSelectUsername } from "../hooks/index"
+import { useSelectUsername, sendFriendRequests } from "../hooks/index"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const SearchUsersPage = () =>{
-    const { handleSelectUser, users, loading, errorMessage } = useSelectUsername()
+    const { handleSelectUser, users, loading: selectLoading, errorMessage: selectErrorMessage } = useSelectUsername()
+    const { handleSend, loading: sendLoading, errorMessage: sendErrorMessage } = sendFriendRequests()
     const [username, setUsername] = useState("")
+    const [sentUsers, setSentUsers] = useState<string[]>([])
     const navigate = useNavigate()
 
     return (
@@ -15,19 +17,36 @@ const SearchUsersPage = () =>{
                 <button type="submit">検索</button>
             </form>
 
-            {loading && <p>検索中...</p>}
+            {selectLoading && <p>検索中...</p>}
         
-            {errorMessage && <p>{errorMessage}</p>}
+            {selectErrorMessage && <p>{selectErrorMessage}</p>}
 
             
             {users.length > 0 && (
                 <ul>
                 {users.map((u, i) => (
-                    <li key={i}>{u}</li>
+                    <li key={i} >
+                        {u}
+                        {sentUsers.includes(u) ? ( 
+                        <button disabled>申請済み</button> 
+                        ) : ( 
+                        <button onClick={async () => {
+                            handleSend(u) 
+                            setSentUsers((prev) => [...prev, u])
+                            }}>
+                            {sendLoading ? "申請中" : "フレンド申請"}
+                            </button> )
+                        }
+                    </li>
                 ))}
                 </ul>
+
             )} 
-            {!loading && users.length === 0 && !errorMessage && (
+
+            {sendErrorMessage && <p>{sendErrorMessage}</p>}
+
+
+            {!selectLoading && users.length === 0 && !selectErrorMessage && (
                 <p>ユーザが見つかりません</p>
             )}
 
