@@ -1,5 +1,6 @@
-import { signIn, selectEmailByName } from "../services/index"
+import { signIn, selectOne } from "../services/index"
 import { useState } from 'react'
+import type { SupabaseResponseOne } from "../types/db"
 //import { AuthError } from "@supabase/supabase-js"
 
 
@@ -12,8 +13,18 @@ const useSignIn = () => {
         setLoading(true)
         let step: "signIn" | "select" = "select"
         try {
-            const email = await selectEmailByName(username)
+            const data: SupabaseResponseOne['data'] = await selectOne({ 
+                table: 'profiles',
+                column: 'email', 
+                eqKey: 'username',
+                eqVal: username, 
+            })
+
+            const email = data?.email ?? null
+
             if(!email) throw new Error("メールアドレスの取得に失敗")
+
+            console.log("typeof email:", typeof email, "value:", email);
 
             step = "signIn"
             await signIn(email, password)

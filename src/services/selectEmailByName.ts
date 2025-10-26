@@ -1,7 +1,8 @@
 import { supabase } from "./makeSupabase";
 
 const selectEmailByName = async (username: string) => {
-    const { data, error } = await supabase.from('profiles')
+    const { data, error } = await supabase
+        .from('profiles')
         .select('email')
         .eq('username', username)
         .single()
