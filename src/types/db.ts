@@ -1,9 +1,9 @@
 import { PostgrestError } from "@supabase/supabase-js"
 
-export type profileRow = {
+export type Profile = {
     id: string,
     user: string,
-    email: string
+    status: 'online' | 'offline'
 }
 
 export type rowData = Record<string, string>
@@ -35,3 +35,5 @@ export type SupabaseResponseTwo = {
   data: Record<string, string>[] | null
   error: PostgrestError | null
 }
+
+export type StatusPayload = { id: string, status: 'online' | 'offline' }
