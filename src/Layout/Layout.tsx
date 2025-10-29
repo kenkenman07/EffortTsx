@@ -1,39 +1,55 @@
+// src/layouts/Layout.tsx
 import { Outlet } from "react-router-dom"
-import { useSetOnlineStatus, useGetSession, useSubscribe } from "../hooks/index"
-//import type { Profile } from "../types/db"
+import { useGetSession } from "../hooks"
+import { usePresence } from "../hooks/usePresence"   // ← 追加
+import { name_id } from "../services"
+import { useEffect, useState } from "react"
+import type { PresenceUser } from "../types/realtime"
 
 const Layout = () => {
-    const { user } = useGetSession()
+  const [username, setUsername] = useState<string>('')
+  const { user } = useGetSession()
+  const userId = user?.id
 
-    const userId = user?.id
+  useEffect (() => {
+    if(!userId) return
+    let didCancel = false
+    const fetchName = async () => {
 
+
+      const name = await name_id(userId, 'id', 'username')
+      if(!didCancel)setUsername(name)
+    }
+    fetchName()
+
+    return () => {
+      didCancel = true
+    }
+
+  }, [userId])
+
+  const { onlineUsers }: { onlineUsers: PresenceUser[] } = usePresence(userId ?? "", username ?? "") 
+
+  console.log('onlineUsers:', onlineUsers)
+  
     
-    const errorMessage = useSetOnlineStatus(userId ?? null)
-    let { friends, errorMessage: subscError } = useSubscribe()
-    
+  return (
+    <div>
+      <header>
+        <h2>presence</h2>
+        {onlineUsers.length === 0 && <p>オンラインのユーザがいません</p>}
+        {onlineUsers.length > 0 && onlineUsers.map((user) => (
+          <p key={user.userId}>{user.username}</p>
+        ))}
 
-    return (
-        <div>
-            {errorMessage && <p>{errorMessage}</p> }
+        
+      </header>
 
-            {subscError && <p>{subscError}</p>}
-
-            <ul>
-                { friends.map((f) => (
-                    <li key={f.id}>
-                        <span>{f.user}</span>
-                        <small >{f.status === "online" ? "● online" : "○ offline"}</small>
-                    </li>
-                    )) }
-            </ul>
-
-
-            <main>
-                <Outlet />
-            </main>
-
-        </div>
-
-    )
+      <main>
+        <Outlet />
+      </main>
+    </div>
+  )
 }
+
 export default Layout
