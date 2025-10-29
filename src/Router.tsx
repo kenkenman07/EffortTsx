@@ -8,6 +8,7 @@ import SearchUsersPage from './pages/SearchUsersPage'
 import SearchRequestsPage from './pages/SearchRequestsPage'
 import SearchFriendsPage  from './pages/SearchFriendsPage'
 import Layout from './Layout/Layout'
+import TaskPage from './pages/TaskPage'
 
 const ProtectedChildren = ()  => {
     const {user, loading} = useGetSession()
@@ -32,6 +33,7 @@ const Router = () => {
                 <Route path='/searuser' element={<SearchUsersPage />} />
                 <Route path='/searreq' element={<SearchRequestsPage />} />
                 <Route path='/searfri' element={<SearchFriendsPage />} />
+                <Route path='/task' element={<TaskPage />} />
 
                     </Route>
                 </Route>
