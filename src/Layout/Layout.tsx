@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import { useSetOnlineStatus, useGetSession, useSubscribe } from "../hooks/index"
-import type { Profile } from "../types/db"
+//import type { Profile } from "../types/db"
 
 const Layout = () => {
     const { user } = useGetSession()
@@ -8,12 +8,16 @@ const Layout = () => {
     const userId = user?.id
 
     
-    useSetOnlineStatus(userId ?? null)
-    let friends: Profile[] = useSubscribe()
+    const errorMessage = useSetOnlineStatus(userId ?? null)
+    let { friends, errorMessage: subscError } = useSubscribe()
     
 
     return (
         <div>
+            {errorMessage && <p>{errorMessage}</p> }
+
+            {subscError && <p>{subscError}</p>}
+
             <ul>
                 { friends.map((f) => (
                     <li key={f.id}>

@@ -1,22 +1,32 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { setUsersStatus } from "../services/index"
 
 const useSetOnlineStatus = (userId: string | null) => {
-    useEffect(() => {
-        if(!userId) return
+    const [errorMessage, setErrorMessage] = useState('')
 
-        const setOnline = async () => setUsersStatus(userId, 'online')
-        const setOffline = async () => setUsersStatus(userId, 'offline')
+    try { 
 
-        setOnline()
-        window.addEventListener("beforeunload", setOffline)
-    
-    return () => {
-      setOffline()
-      window.removeEventListener("beforeunload", setOffline)
+        useEffect(() => {
+            if(!userId) return
+            
+            const setOnline = async () => setUsersStatus(userId, 'online')
+            const setOffline = async () => setUsersStatus(userId, 'offline')
+                        
+            setOnline()
+            window.addEventListener("beforeunload", setOffline)
+            
+            return () => {
+                setOffline()
+                window.removeEventListener("beforeunload", setOffline)
+            }
+            
+        }, [userId])
+    } catch (error) {
+        setErrorMessage('statusの更新に失敗')
+
     }
 
-    }, [userId])
+    return errorMessage
     
 }
 export default useSetOnlineStatus
