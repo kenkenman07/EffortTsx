@@ -6,6 +6,10 @@ import { name_id } from "../services"
 import { useEffect, useState } from "react"
 import type { PresenceUser } from "../types/realtime"
 
+import { AppShell, FriendsPanel, type Friend } from "../design"
+import { FireBackground } from "../design/app/FireBackground"
+
+
 const Layout = () => {
   const [username, setUsername] = useState<string>('')
   const { user } = useGetSession()
@@ -30,26 +34,31 @@ const Layout = () => {
 
   const { onlineUsers }: { onlineUsers: PresenceUser[] } = usePresence(userId ?? "", username ?? "") 
 
+  const friends: Friend[] = onlineUsers.map((u) => ({
+    id: u.userId,
+    username: u.username,
+    status: "online",
+  }));
+
   console.log('onlineUsers:', onlineUsers)
   
     
   return (
     <div>
-      <header>
-        <h2>presence</h2>
-        {onlineUsers.length === 0 && <p>オンラインのユーザがいません</p>}
-        {onlineUsers.length > 0 && onlineUsers.map((user) => (
-          <p key={user.userId}>{user.username}</p>
-        ))}
 
-        
-      </header>
+    <FireBackground/>
 
-      <main>
+    <AppShell
+      header={<div className="container">🔥 Effort Forest</div>}
+      sidebar={<FriendsPanel friends={friends} />}
+      >
+      <main className="container">
         <Outlet />
       </main>
-    </div>
-  )
+    </AppShell>
+        </div>
+  );
+
 }
 
 export default Layout

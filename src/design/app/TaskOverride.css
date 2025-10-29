@@ -1,0 +1,54 @@
+/* タイマー全体に焚火の雰囲気 */
+body {
+  background: radial-gradient(ellipse at center, #1a1f1a 0%, #0f130f 100%);
+  color: #ffefc7;
+  font-family: "Inter", "Noto Sans JP", sans-serif;
+}
+
+/* タイトル */
+h1 {
+  color: #ffdd99;
+  text-align: center;
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px rgba(255, 150, 50, 0.9);
+}
+
+/* 時間表示 */
+h2 {
+  font-family: "Courier New", monospace;
+  text-align: center;
+  font-size: 3rem;
+  letter-spacing: 0.1em;
+  color: #ffecc8;
+  text-shadow: 0 0 12px rgba(255, 120, 40, 0.9);
+  margin-bottom: 16px;
+}
+
+/* ボタンデザイン（焚火風） */
+button {
+  background: linear-gradient(180deg, #f39c12, #d35400);
+  color: #fffdf6;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 8px;
+  border: none;
+  margin: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+button:hover {
+  background: linear-gradient(180deg, #f6b26b, #e67e22);
+  transform: translateY(-1px);
+}
+
+/* ページ中央に配置 */
+div > h1:first-child,
+div > h2,
+div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}

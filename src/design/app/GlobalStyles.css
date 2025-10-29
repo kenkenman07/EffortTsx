@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  font-family: "Inter", "Noto Sans JP", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--ember);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--warm1);
+}
+
+/* ボタン */
+button {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+  transition: background 0.2s, transform 0.1s;
+}
+button:hover {
+  background: var(--btn-hover);
+  transform: translateY(-1px);
+}
+
+/* カードなど */
+.card {
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ヘッダー配置調整 */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: linear-gradient(90deg, rgba(25,28,25,0.9), rgba(20,24,20,0.85));
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.app-header h1 {
+  color: var(--ember);
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(230, 126, 34, 0.5);
+  margin: 0;
+}
+
+/* ヘッダー右側のボタン */
+.app-header nav {
+  display: flex;
+  gap: 10px;
+}

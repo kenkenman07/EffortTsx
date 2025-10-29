@@ -2,6 +2,8 @@ import { useSignUp } from "../hooks/index";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { SignUpDesign } from "../design/pages/SignUpDesign";
+
 const SignUpPage = () => {
     const { handleSignUp, loading, errorMessage, success } = useSignUp()
     const [email, setEmail] = useState("")
@@ -16,6 +18,8 @@ const SignUpPage = () => {
 
     return (
         <>
+        <SignUpDesign>
+
             <h1>アカウント登録ページ</h1>
             <form onSubmit={(e) => {e.preventDefault(); handleSignUp(email, password, username)}} >
                 <input value={email} placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
@@ -30,6 +34,7 @@ const SignUpPage = () => {
             </form>
 
             <button onClick={() => navigate("/")}>アカウント登録がお済である方はこちら</button>
+        </SignUpDesign>
         </>
     )
 }

@@ -1,0 +1,19 @@
+.warmclock{
+  display:grid; gap:8px; place-items:center; padding:16px 22px;
+  background: linear-gradient(180deg, rgba(32,38,31,.8), rgba(22,26,21,.6));
+  border:1px solid rgba(255,255,255,.06);
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
+}
+.time{
+  font-variant-numeric: tabular-nums;
+  font-weight: 700; letter-spacing: .04em;
+  font-size: clamp(28px, 4vw, 50px);
+  text-shadow: 0 0 18px rgba(230,126,34,.45);
+  color: var(--ember);
+}
+.colon{ opacity:.8; }
+.sub{
+  color: var(--muted); font-size: 12px; letter-spacing: .08em;
+  text-transform: uppercase;
+}
