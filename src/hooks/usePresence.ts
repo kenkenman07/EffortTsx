@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { subscribePresence, unsubscribePresence } from "../services/presenceService"
 import type { PresenceUser } from "../types/realtime"
 
-export const usePresence = (userId: string, username: string): { onlineUsers: PresenceUser[] } => {
+const usePresence = (userId: string, username: string): { onlineUsers: PresenceUser[] } => {
   const [onlineUsers, setOnlineUsers] = useState<PresenceUser[]>([])
 
   useEffect(() => {
@@ -27,3 +27,4 @@ export const usePresence = (userId: string, username: string): { onlineUsers: Pr
 
   return { onlineUsers }
 }
+export default usePresence

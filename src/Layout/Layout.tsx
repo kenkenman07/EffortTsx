@@ -1,7 +1,7 @@
 // src/layouts/Layout.tsx
 import { Outlet } from "react-router-dom"
 import { useGetSession } from "../hooks"
-import { usePresence } from "../hooks/usePresence"   // ← 追加
+import { usePresence } from "../hooks/index"   // ← 追加
 import { name_id } from "../services"
 import { useEffect, useState } from "react"
 import type { PresenceUser } from "../types/realtime"
