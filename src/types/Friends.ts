@@ -4,3 +4,8 @@ export type UserFriendStatus = {
     sentRequests: boolean
     isFriend: boolean
 }
+
+export type Friends = {
+    friendId: string
+    friendName: string
+}

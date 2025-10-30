@@ -1,12 +1,13 @@
 import { getSession, insert, name_id } from "../services/index";
 import type { Session } from "@supabase/supabase-js";
 import { useState } from "react";
+import { supabase } from "../services/makeSupabase";
 
 const makeFriends = () => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
 
-    let step: 'session' | 'toId' | 'insert' = 'session'
+    let step: 'session' | 'toId' | 'insert' | 'delete' = 'session'
 
     const handleMakeFriends = async (sendUname: string): Promise<void> => {
         setLoading(true)
@@ -24,6 +25,14 @@ const makeFriends = () => {
             step = 'insert'
 
             await insert('friends', { user_id: recvUid, friends_id: sendUid })
+
+            step = "delete";
+            
+            await supabase
+                .from("friendRequests")
+                .delete()
+                .or(`(send_uid.eq.${sendUid},recv_uid.eq.${recvUid}),(send_uid.eq.${recvUid},recv_uid.eq.${sendUid})`);
+
 
         } catch (error) {
             if(step === 'session') {setErrorMessage('セッション取得エラー')}

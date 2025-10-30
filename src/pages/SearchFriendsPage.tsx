@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 
 const SearchRequestsPage = () =>{
-    const { handleSelectFriends, loading, errorMessage, users } = searchFriends()
+    const { handleSelectFriends, loading, errorMessage, friends } = searchFriends()
     //const [username, setUsername] = useState("")
     //const [sentUsers, setSentUsers] = useState<string[]>([])
     const navigate = useNavigate()
@@ -23,18 +23,18 @@ const SearchRequestsPage = () =>{
             {errorMessage && <p>{errorMessage}</p>}
 
             
-            {users.length > 0 && (
+            {friends.length > 0 && (
                 <ul>
-                {users.map((u, i) => (
-                    <li key={i} >
-                        {u}
+                {friends.map((i) => (
+                    <li key={i.friendId} >
+                        {i.friendName}
                     </li>
                 ))}
                 </ul>
 
             )} 
 
-            {!loading && users.length === 0 && !errorMessage && (
+            {!loading && friends.length === 0 && !errorMessage && (
                 <p>ユーザが見つかりません</p>
             )}
 
