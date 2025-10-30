@@ -23,9 +23,8 @@ const sendFriendRequests = () => {
             
             step = 'insert'
 
-            console.log('recvuid:', recvUid, 'sendUid', sendUid)
-
             await insert('friendRequests', { recv_uid: recvUid, send_uid: sendUid })
+
         } catch (error) {
             if(step === 'session') {setErrorMessage('セッション取得エラー')}
             else if(step === 'toId') {setErrorMessage('name-id変換エラー')}

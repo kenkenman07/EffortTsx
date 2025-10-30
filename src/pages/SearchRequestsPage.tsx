@@ -36,7 +36,7 @@ const SearchRequestsPage = () =>{
                             handleMakeFriends(u) 
                             setSentUsers((prev) => [...prev, u])
                             }}>
-                            {acceptLoading ? "申請中..." : "承認"}
+                            {acceptLoading ? "承認中..." : "承認"}
                             </button> )
                         }
                     </li>

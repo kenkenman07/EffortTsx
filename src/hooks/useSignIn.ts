@@ -24,14 +24,12 @@ const useSignIn = () => {
 
             if(!email) throw new Error("メールアドレスの取得に失敗")
 
-            console.log("typeof email:", typeof email, "value:", email);
-
             step = "signIn"
             await signIn(email, password)
             setSuccess(true)
         } catch(error: unknown) {
             if(step === "select") setErrorMessage("メールアドレスセレクトエラー")
-            //if(error instanceof AuthError) console.log(error.message)
+           
             else setErrorMessage("ログインエラー")
         } finally {
             setLoading(false)

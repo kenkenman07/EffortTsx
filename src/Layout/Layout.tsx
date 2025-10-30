@@ -29,9 +29,7 @@ const Layout = () => {
   }, [userId])
 
   const { onlineUsers }: { onlineUsers: PresenceUser[] } = usePresence(userId ?? "", username ?? "") 
-
-  console.log('onlineUsers:', onlineUsers)
-  
+ 
     
   return (
     <div>
@@ -39,7 +37,12 @@ const Layout = () => {
         <h2>presence</h2>
         {onlineUsers.length === 0 && <p>オンラインのユーザがいません</p>}
         {onlineUsers.length > 0 && onlineUsers.map((user) => (
-          <p key={user.userId}>{user.username}</p>
+          userId === user.userId ? (
+            <p key={user.userId}>{user.username} (あなた)</p>
+          ) : ( 
+            <p key={user.userId}>{user.username}</p> 
+          )
+        
         ))}
 
         

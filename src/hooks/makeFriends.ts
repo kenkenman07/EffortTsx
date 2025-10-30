@@ -23,10 +23,7 @@ const makeFriends = () => {
             
             step = 'insert'
 
-            console.log('recvuid:', recvUid, 'sendUid', sendUid)
-
             await insert('friends', { user_id: recvUid, friends_id: sendUid })
-            await insert('friends', { user_id: sendUid, friends_id: recvUid })
 
         } catch (error) {
             if(step === 'session') {setErrorMessage('セッション取得エラー')}

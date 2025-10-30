@@ -20,10 +20,9 @@ export const subscribePresence = (userId: string, username: string,
   // チャンネル購読開始
   channel.subscribe(async (status) => {
     if (status !== "SUBSCRIBED") return
-    console.log('SUBSCRIBED: OK')
+   
     // 自分のpresenceをトラック（オンライン通知）
-    const OK = await channel.track({ userId: userId, username } satisfies PresencePayload )
-    console.log('track結果:', OK)
+    await channel.track({ userId: userId, username } satisfies PresencePayload )
   })
 
   return channel

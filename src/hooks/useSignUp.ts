@@ -24,10 +24,10 @@ const useSignUp = () => {
             setSuccess(true)
         } catch(error: unknown) {
             if(step === "signUp") {
-                //if(error instanceof AuthError) console.log(error.message)
+           
                 setErrorMessage("アカウント登録エラー")
             } else {
-                //if(error instanceof AuthError) console.log(error.message)
+               
                 setErrorMessage("ユーザ情報登録エラー")
             }
         } finally {
