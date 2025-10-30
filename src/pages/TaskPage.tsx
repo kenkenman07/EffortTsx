@@ -1,5 +1,6 @@
 import { useTimer } from "../hooks/index"
 import { useNavigate } from "react-router-dom"
+import '../design/app/TaskOverride.css'
 
 const TaskPage = () => {
   const { seconds, isRunning, start, stop, reset } = useTimer()
@@ -28,9 +29,10 @@ const TaskPage = () => {
         <button onClick={reset} >
           🔄 Reset
         </button>
+        <button onClick={() => navigate('/dash')}>ダッシュボードページ</button>
+      
       </div>
 
-        <button onClick={() => navigate('/dash')}>ログイン画面</button>
 
     </div>
   )

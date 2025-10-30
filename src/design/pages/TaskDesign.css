@@ -1,0 +1,7 @@
+.taskdesign{
+  min-height: calc(100dvh);
+  display:grid; place-items:center; padding: 24px;
+}
+.center-stack{
+  display:grid; gap: 18px; place-items:center;
+}

@@ -1,0 +1,44 @@
+:root {
+  /* ベースカラー */
+  --bg: #171b17;
+  --panel: #1f241f;
+  --text: #f9f8f4;
+  --muted: #bdb8a5;
+
+  /* 暖色（焚火系） */
+  --warm1: #f6b26b;
+  --warm2: #f39c12;
+  --warm3: #e67e22;
+  --ember: #ffdd99;
+
+  /* アクセントと状態 */
+  --accent: #8fd694;
+  --online: #84e093;
+  --offline: #6b6b6b;
+
+  /* ボタン色 */
+  --btn-bg: #e07b39;
+  --btn-text: #fffaf2;
+  --btn-hover: #f6b26b;
+
+  /* 陰影 */
+  --shadow-soft: 0 6px 24px rgba(0, 0, 0, 0.6);
+}
+
+body.design-forest {
+  background: radial-gradient(1600px 800px at 50% 100%, #1b211b 0%, #111611 80%, #0a0e0a 100%);
+  color: var(--text);
+}
+
+/* 背景のシルエット（森） */
+.design-forest .tree-silhouette:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(600px 300px at 25% 100%, rgba(30, 40, 30, .4) 0, transparent 60%),
+    radial-gradient(600px 300px at 75% 100%, rgba(30, 40, 30, .4) 0, transparent 60%);
+  filter: blur(2px);
+}

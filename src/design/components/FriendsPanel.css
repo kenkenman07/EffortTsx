@@ -1,0 +1,39 @@
+.friends-panel{
+  background: linear-gradient(180deg, rgba(32,38,31,.9), rgba(24,28,23,.7));
+  border:1px solid rgba(255,255,255,.06);
+  border-radius: 12px; padding:12px; display:grid; gap:10px;
+}
+.fp-header{ display:flex; justify-content:space-between; align-items:center; }
+.fp-title{ color:var(--accent); font-weight:700; letter-spacing:.02em; }
+.fp-count{ color:var(--muted); font-size:12px; }
+
+.fp-group{ display:grid; gap:8px; }
+.fp-group-title{ color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; }
+
+.fp-item{
+  display:flex; align-items:center; gap:10px; padding:10px; border-radius:10px;
+  background: rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.05);
+}
+.fp-item.online{ cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; }
+.fp-item.online:hover{ transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,.25) }
+
+.name{ color:var(--text); font-weight:600; }
+.leaf{ margin-left:auto; opacity:.9 }
+
+.presence{ position:relative; width:14px; height:14px; display:grid; place-items:center; }
+.presence .dot{
+  width:10px; height:10px; border-radius:50%;
+  background: var(--offline);
+}
+.fp-item.online .dot{ background: var(--online) }
+
+.ping{
+  position:absolute; width:18px; height:18px; border-radius:50%;
+  border:2px solid rgba(123,216,143,.6);
+  animation: ping 1.6s ease-out infinite;
+  opacity:.6;
+}
+@keyframes ping{ 0%{transform:scale(.6); opacity:.75} 80%{transform:scale(1.4); opacity:0} 100%{opacity:0} }
+
+.fp-empty{ color:var(--muted); font-size:12px; padding:8px; opacity:.9 }
