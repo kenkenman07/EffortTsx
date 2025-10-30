@@ -31,13 +31,14 @@ const makeFriends = () => {
             await supabase
                 .from("friendRequests")
                 .delete()
-                .or(`(send_uid.eq.${sendUid},recv_uid.eq.${recvUid}),(send_uid.eq.${recvUid},recv_uid.eq.${sendUid})`);
+                .or(`send_uid.eq.${sendUid},recv_uid.eq.${recvUid}`);
 
 
         } catch (error) {
             if(step === 'session') {setErrorMessage('セッション取得エラー')}
             else if(step === 'toId') {setErrorMessage('name-id変換エラー')}
             else if(step === 'insert') {setErrorMessage('insertエラー')}
+            else if(step === 'delete') {setErrorMessage('デリートエラー')}
 
         }finally {
             setLoading(false)
