@@ -1,0 +1,89 @@
+/* 森林キャンプの夜景を演出（完全背面／UI非干渉） */
+#forest-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #0a0f1c 0%, #091018 70%, #05080d 100%);
+}
+
+/* 星屑レイヤー */
+#forest-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #fff 50%, transparent 50%),
+    radial-gradient(1px 1px at 30% 80%, #fff 50%, transparent 50%),
+    radial-gradient(1px 1px at 60% 40%, #fff 50%, transparent 50%),
+    radial-gradient(1px 1px at 80% 60%, #fff 50%, transparent 50%);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.2;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.15; }
+  100% { opacity: 0.3; }
+}
+
+/* 月 */
+#forest-scene::after {
+  content: "";
+  position: absolute;
+  top: 60px;
+  right: 120px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fffde6, #ffd87c 70%, transparent 100%);
+  box-shadow: 0 0 40px 10px rgba(255, 245, 180, 0.2);
+  opacity: 0.85;
+}
+
+/* 木のシルエット群 */
+.forest-tree {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(180deg, #0a2410 0%, #041006 100%);
+  clip-path: polygon(50% 0, 0 100%, 100% 100%);
+  transform-origin: bottom center;
+  animation: sway 6s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+  0% { transform: scaleY(1) rotate(-1deg); }
+  100% { transform: scaleY(1.02) rotate(1deg); }
+}
+
+/* 焚き火 */
+.forest-fire {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 30px;
+  border-radius: 50% 50% 35% 35%;
+  background: radial-gradient(circle at 50% 70%, #ffb347, #ff7f50 60%, transparent 100%);
+  box-shadow:
+    0 0 30px 10px rgba(255,140,60,0.3),
+    0 0 60px 20px rgba(255,80,40,0.15);
+  animation: flicker 0.8s infinite ease-in-out alternate;
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+  100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+}
+
+/* 木を複数生成 */
+#forest-scene .forest-tree:nth-child(1) { left: 5%;  width: 40px; height: 100px; }
+#forest-scene .forest-tree:nth-child(2) { left: 15%; width: 50px; height: 130px; }
+#forest-scene .forest-tree:nth-child(3) { left: 25%; width: 35px; height: 90px; }
+#forest-scene .forest-tree:nth-child(4) { left: 60%; width: 55px; height: 140px; }
+#forest-scene .forest-tree:nth-child(5) { left: 75%; width: 45px; height: 120px; }
+#forest-scene .forest-tree:nth-child(6) { left: 90%; width: 50px; height: 130px; }

@@ -6,8 +6,9 @@ import { name_id } from "../services"
 import { useEffect, useState } from "react"
 import type { PresenceUser } from "../types/realtime"
 
-//import { AppShell, FriendsPanel, type Friend } from "../design"
-import { FireBackground } from "../design/app/FireBackground"
+import { LayoutWrapper } from "../design/components/LayoutWrapper";
+import "../design/app/campThemeLite";
+
 
 
 const Layout = () => {
@@ -36,18 +37,19 @@ const Layout = () => {
  
     
   return (
+    <LayoutWrapper>
+
     <div> 
 
-    <FireBackground/>
-
+    
     {onlineUsers.length === 0 && <p>オンラインのユーザがいません</p>}
     {onlineUsers.length > 0 && onlineUsers.map((user) => (
       userId === user.userId ? (
         <p key={user.userId}>{user.username} (あなた)</p>
       ) : ( 
-        <p key={user.userId}>{user.username}</p> 
+        <p key={user.userId}>{user.username}</p>
       )
-    
+      
     ))}
     
       <main>
@@ -55,6 +57,7 @@ const Layout = () => {
       </main>
     
         </div>
+    </LayoutWrapper>
   );
 
 }

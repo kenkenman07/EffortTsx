@@ -1,0 +1,65 @@
+/* src/design/app/campThemeLite.css */
+
+/* ===== 背景（夜のキャンプ）レイヤー ===== */
+#camp-theme-lite-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;      /* クリックを通す */
+  z-index: -1;               /* いちばん後ろ */
+  background:
+    radial-gradient(1200px 800px at 70% -10%, rgba(255,170,50,0.06), transparent 60%),
+    radial-gradient(900px 700px at 20% -10%, rgba(255,210,120,0.05), transparent 60%),
+    linear-gradient(180deg, #0b1020 0%, #0a0f1a 55%, #070c16 100%);
+}
+
+/* ===== Presence行だけに限定した装飾 ===== */
+/* ボタンやフォーム、リンクは一切いじらない */
+
+p.presence-friend,
+p.presence-self {
+  /* 読みやすさのための最小限だけ（全体色は変えない） */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+  line-height: 1.9;
+}
+
+/* フレンド：左に淡く光るドット（オンライン感） */
+p.presence-friend {
+  position: relative;
+  padding-left: 1.4rem;
+  font-weight: 500;
+}
+
+p.presence-friend::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  top: 0.7rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #7cffb2;
+  box-shadow: 0 0 8px 2px rgba(124,255,178,0.55),
+              0 0 16px 6px rgba(124,255,178,0.25);
+  animation: camp-lite-pulse 1.6s ease-in-out infinite;
+}
+
+/* 自分は控えめバッジ（干渉しない中立デザイン） */
+p.presence-self {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  margin: 0.15rem 0;
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(2px);
+  font-weight: 500;
+}
+
+@keyframes camp-lite-pulse {
+  0%   { transform: scale(0.9); opacity: 0.9; }
+  50%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.9; }
+}
+
+/* 重要：ボタン/フォーム類は触らない（干渉なし） */
+/* button, input, a, select, textarea { 何も書かない } */

@@ -1,0 +1,100 @@
+/* 夜のキャンプ風ラッパー */
+/* 既存のボタンやテキストには干渉しない */
+
+.layout-wrapper {
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    radial-gradient(800px 500px at 50% -10%, rgba(255,190,100,0.10), transparent 60%),
+    linear-gradient(180deg, #0b1020 0%, #0a0f1a 55%, #070c16 100%);
+  box-shadow: 0 0 40px rgba(255,170,70,0.05);
+  padding: 20px;
+  margin: 20px 0;
+  color: #EAEFF5;
+  backdrop-filter: blur(6px);
+}
+
+.layout-wrapper__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.layout-wrapper__title {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  color: #FFD7A3;
+}
+
+/* オンラインユーザ行だけ少し光を足す */
+.layout-wrapper p {
+  position: relative;
+  padding-left: 1.2rem;
+  margin: 6px 0;
+}
+
+.layout-wrapper p::before {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.55rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: #7CFFB2;
+  box-shadow: 0 0 6px 2px rgba(124,255,178,0.45);
+}
+
+.layout-wrapper p:has(あなた) {
+  color: #FFD48A;
+  font-weight: 600;
+}
+
+button {
+  transition: all 0.2s ease;
+  background: linear-gradient(180deg, #ffffff0d, #ffffff05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  color: #e7ecf0;
+  padding: 6px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+button:hover:not(:disabled) {
+  background: rgba(255,255,255,0.1);
+  transform: scale(1.03);
+}
+
+/* disabled 状態をはっきり見せる */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  color: #aaa;
+  border-color: rgba(255,255,255,0.2);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.05) 6px,
+    rgba(255,255,255,0.08) 6px,
+    rgba(255,255,255,0.08) 12px
+  );
+  position: relative;
+}
+
+/* disabledにラベルのような斜線エフェクト */
+button:disabled::after {
+  content: "×";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  color: rgba(255,255,255,0.3);
+  pointer-events: none;
+}
