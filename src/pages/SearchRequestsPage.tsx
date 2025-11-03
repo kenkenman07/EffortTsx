@@ -1,11 +1,11 @@
-import { makeFriends, recvFriendRequests } from "../hooks/index"
+import { useAcceptFriendRequests, useRecvFriendRequests } from "../hooks/index"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 
 const SearchRequestsPage = () =>{
-    const { handleMakeFriends, loading: acceptLoading, errorMessage: acceptErrorMessage } = makeFriends()
-    const { handleRecv, loading: recvLoading, errorMessage: recvErrorMessage, users: recvUsers } = recvFriendRequests()
+    const { handleMakeFriends, loading: acceptLoading, errorMessage: acceptErrorMessage } = useAcceptFriendRequests()
+    const { handleRecv, loading: recvLoading, errorMessage: recvErrorMessage, users: recvUsers } = useRecvFriendRequests()
     //const [username, setUsername] = useState("")
     const [sentUsers, setSentUsers] = useState<string[]>([])
     const navigate = useNavigate()

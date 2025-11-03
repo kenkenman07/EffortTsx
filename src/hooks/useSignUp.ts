@@ -1,5 +1,4 @@
-//import { AuthError } from "@supabase/supabase-js"
-import { signUp } from "../services/index"
+import { signUp } from "../services/auth"
 import { insert } from "../services/index"
 import { useState } from "react"
 
@@ -13,21 +12,19 @@ const useSignUp = () => {
         let step:  "signUp" | "insert" = "signUp" 
 
         try {
-            const data  = await signUp(email, password)
+            const user_id: (string | null)  = await signUp(email, password)
             
-            const userId = data.user?.id
-            if(!userId) throw new Error("ユーザID取得失敗")
+            if(!user_id) throw new Error("ユーザidがnullです")
             
             step = "insert" 
-            await insert('profiles', { id: userId, username, email })
+            await insert('profiles', { id: user_id, username, email })
             
             setSuccess(true)
         } catch(error: unknown) {
             if(step === "signUp") {
-           
+                console.log(error)
                 setErrorMessage("アカウント登録エラー")
             } else {
-               
                 setErrorMessage("ユーザ情報登録エラー")
             }
         } finally {

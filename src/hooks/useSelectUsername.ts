@@ -1,21 +1,23 @@
-//import type { PostgrestResponse } from "@supabase/supabase-js";
 import { selectMany } from "../services/index";
+import { getSession } from "../services/auth";
 import { useState } from "react";
 import type { UserFriendStatus } from "../types/Friends";
-import useGetSession from "./useGetSession";
 import { supabase } from "../services/makeSupabase";
 
 const useSelectUsername = () => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [users, setUsers] = useState<UserFriendStatus[]>([])
+    const [you_id, setYou_id] = useState<string>("")
 
-    const { user: you } = useGetSession()
-    const you_id = you?.id
-
-    const handleSelectUser = async (username: string) => {
-        if(!you_id) return
+    
+    const handleSelectUser = async (username: string) => { 
         setLoading(true)
+
+        const user_id: (string | null) = await getSession()
+        if(!user_id) throw new Error("ユーザidがnullです")
+        
+        setYou_id(user_id)
         
 
         try {
@@ -55,6 +57,7 @@ const useSelectUsername = () => {
             setUsers(result)
 
         } catch(error) {
+            console.log(error)
             setErrorMessage("ユーザ検索エラー")
         } finally {
             setLoading(false)

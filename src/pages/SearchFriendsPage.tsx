@@ -1,10 +1,10 @@
-import { searchFriends } from "../hooks/index"
+import { useSearchFriends } from "../hooks/index"
 //import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 
 const SearchRequestsPage = () =>{
-    const { handleSelectFriends, loading, errorMessage, friends } = searchFriends()
+    const { handleSelectFriends, loading, errorMessage, friends } = useSearchFriends()
     //const [username, setUsername] = useState("")
     //const [sentUsers, setSentUsers] = useState<string[]>([])
     const navigate = useNavigate()

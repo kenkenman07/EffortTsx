@@ -1,8 +1,7 @@
-import { signIn, selectOne } from "../services/index"
+import { selectOne } from "../services/index"
+import { signIn } from "../services/auth"
 import { useState } from 'react'
 import type { SupabaseResponseOne } from "../types/db"
-//import { AuthError } from "@supabase/supabase-js"
-
 
 const useSignIn = () => {
     const [loading, setLoading] = useState(false)

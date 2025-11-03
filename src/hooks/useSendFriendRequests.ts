@@ -1,8 +1,8 @@
-import { getSession, insert, name_id } from "../services/index";
-import type { Session } from "@supabase/supabase-js";
+import { insert, name_id } from "../services/index";
+import { getSession } from "../services/auth";
 import { useState } from "react";
 
-const sendFriendRequests = () => {
+const useSendFriendRequests = () => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -11,12 +11,12 @@ const sendFriendRequests = () => {
     const handleSend = async (recvUname: string): Promise<void> => {
         setLoading(true)
         try{ 
-            const session: (Session | null) = await getSession()
-            const user = session?.user
+            const user_id: (string | null) = await getSession()
+    
             
-            if(!user) { throw new Error("ログインしていない") }
+            if(!user_id) { throw new Error("ユーザidがnullです") }
             
-            const sendUid: string = user?.id 
+            const sendUid: string = user_id 
             
             step = 'toId'
             const recvUid: string = await name_id(recvUname, 'username', 'id')
@@ -26,6 +26,8 @@ const sendFriendRequests = () => {
             await insert('friendRequests', { recv_uid: recvUid, send_uid: sendUid })
 
         } catch (error) {
+            console.log(error)
+
             if(step === 'session') {setErrorMessage('セッション取得エラー')}
             else if(step === 'toId') {setErrorMessage('name-id変換エラー')}
             else if(step === 'insert') {setErrorMessage('insertエラー')}
@@ -38,4 +40,4 @@ const sendFriendRequests = () => {
         return { handleSend, loading, errorMessage }
 
 }
-export default sendFriendRequests
+export default useSendFriendRequests

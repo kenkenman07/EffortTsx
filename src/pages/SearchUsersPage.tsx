@@ -1,10 +1,10 @@
-import { useSelectUsername, sendFriendRequests } from "../hooks/index"
+import { useSelectUsername, useSendFriendRequests } from "../hooks/index"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const SearchUsersPage = () =>{
     const { handleSelectUser, users, loading: selectLoading, errorMessage: selectErrorMessage, you_id } = useSelectUsername()
-    const { handleSend, loading: sendLoading, errorMessage: sendErrorMessage } = sendFriendRequests()
+    const { handleSend, loading: sendLoading, errorMessage: sendErrorMessage } = useSendFriendRequests()
     const [sentUsers, setSentUsers] = useState<string[]>([])
     const [username, setUsername] = useState("")
     const navigate = useNavigate()

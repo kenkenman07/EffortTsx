@@ -1,9 +1,9 @@
-import { getSession, insert, name_id } from "../services/index";
-import type { Session } from "@supabase/supabase-js";
+import { insert, name_id } from "../services/index";
+import { getSession } from "../services/auth";
 import { useState } from "react";
 import { supabase } from "../services/makeSupabase";
 
-const makeFriends = () => {
+const useAcceptFriendRequests = () => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -12,12 +12,11 @@ const makeFriends = () => {
     const handleMakeFriends = async (sendUname: string): Promise<void> => {
         setLoading(true)
         try{ 
-            const session: (Session | null) = await getSession()
-            const user = session?.user
+            const user_id: (string | null) = await getSession()
             
-            if(!user) { throw new Error("ログインしていない") }
+            if(!user_id) { throw new Error("ユーザidがnullです") }
             
-            const recvUid: string = user?.id 
+            const recvUid: string = user_id
             
             step = 'toId'
             const sendUid: string = await name_id(sendUname, 'username', 'id')
@@ -48,4 +47,4 @@ const makeFriends = () => {
         return { handleMakeFriends, loading, errorMessage }
 
 }
-export default makeFriends
+export default useAcceptFriendRequests

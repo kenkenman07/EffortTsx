@@ -1,11 +1,10 @@
-//import type { PostgrestResponse } from "@supabase/supabase-js";
-import { getSession, name_id } from "../services/index";
+import { name_id } from "../services/index";
+import { getSession } from "../services/auth";
 import { useState } from "react";
-import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../services/makeSupabase";
 import type { Friends } from "../types/Friends";
 
-const searchFriends = () => {
+const useSearchFriends = () => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [friends, setFriends] = useState<Friends[]>([])
@@ -16,25 +15,23 @@ const searchFriends = () => {
         setLoading(true)
         
         try {
-            const session: (Session | null) = await getSession()
-            const user = session?.user
+            const user_id = await getSession()
             
                 
-            if(!user) { throw new Error("ログインしていない") }
+            if(!user_id) { throw new Error("ユーザidがnullです") }
             
-            const userId: string = user?.id 
             
             step = 'select'
            
             const { data, error } = await supabase
             .from("friends")
             .select("user_id, friends_id")
-            .or(`user_id.eq.${userId},friends_id.eq.${userId}`)
+            .or(`user_id.eq.${user_id},friends_id.eq.${user_id}`)
             
             if(error) throw error
             if(!data) return setFriends([])
                 
-            const friendIds = data.map((f) => f.user_id === userId ? f.friends_id : f.user_id );
+            const friendIds = data.map((f) => f.user_id === user_id ? f.friends_id : f.user_id );
 
             step = 'idToName'        
             const result: Friends[] = await Promise.all(
@@ -59,4 +56,4 @@ const searchFriends = () => {
     return {handleSelectFriends, friends, loading, errorMessage}
     
 }
-export default searchFriends
+export default useSearchFriends

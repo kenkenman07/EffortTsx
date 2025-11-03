@@ -1,8 +1,8 @@
-import { selectMany, name_id, getSession } from "../services/index";
-import type { Session } from "@supabase/supabase-js";
+import { selectMany, name_id } from "../services/index";
+import { getSession } from "../services/auth";
 import { useState } from "react";
 
-const recvFriendRequests = () => {
+const useRecvFriendRequests = () => {
     const [users, setUsers] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
@@ -14,12 +14,11 @@ const recvFriendRequests = () => {
 
         try {
 
-            const session: (Session | null) = await getSession()
-            const user = session?.user
+            const user_id: (string | null) = await getSession()
             
-            if(!user) { throw new Error("ログインしていない") }
+            if(!user_id) { throw new Error("ユーザidがnullです") }
             
-            const recvUid: string = user?.id 
+            const recvUid: string = user_id 
 
             step = 'select'
             
@@ -59,4 +58,4 @@ const recvFriendRequests = () => {
     
     return { handleRecv, loading, errorMessage, users }
 }
-export default recvFriendRequests
+export default useRecvFriendRequests

@@ -1,4 +1,3 @@
-// hooks/usePresence.ts
 import { useEffect, useState, useRef } from "react"
 import { subscribePresence, unsubscribePresence } from "../services/presenceService"
 import type { PresenceUser } from "../types/realtime"
@@ -31,7 +30,7 @@ const usePresence = (userId: string, username: string): { onlineUsers: PresenceU
     if (!userId || !username) return
 
     const channel = subscribePresence(userId, username, (state) => {
-      // presenceState()の構造を整形
+   
       const friends = friendIdsRef.current
       const users: PresenceUser[] = Object.entries(state)
         .map(([userId, payloads]) => ({ userId, username: payloads[0]?.username }))
@@ -42,7 +41,7 @@ const usePresence = (userId: string, username: string): { onlineUsers: PresenceU
     // ブラウザ閉じる前にuntrackする
     window.addEventListener("beforeunload", () => unsubscribePresence(channel))
 
-    // cleanup
+    
     return () => {
       unsubscribePresence(channel)
     }
