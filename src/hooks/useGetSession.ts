@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import type { Session } from "@supabase/supabase-js";
-import { getSession } from "../services/index";
+import { getSession } from "../services/auth";
 
 const useGetSession = () => {
-    const [session, setSession] = useState<Session | null>(null)
+    const [user, setUser] = useState<string>("")
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const checkLogin = async () => {
             try {
-                const session = await getSession()
-                setSession(session)
+                const user_id: (string | null) = await getSession()
+
+                if(!user_id) throw new Error("ユーザidがnullです")
+
+                setUser(user_id)
+            } catch(error) {
+                console.log(error)
             } finally {
                 setLoading(false)
             }
@@ -18,6 +22,6 @@ const useGetSession = () => {
         checkLogin()
     }, [])
 
-    return { session, user: session?.user ?? null, loading}
+    return { user, loading }
 }
 export default useGetSession

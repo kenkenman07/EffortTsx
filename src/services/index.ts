@@ -1,7 +1,3 @@
-export { default as signUp } from './signUp'
-export { default as signIn } from './signIn'
-export { default as signOut } from './signOut'
-export { default as getSession } from './getSession'
 export { default as insert } from './insert'
 export { default as selectOne } from './selectOne'
 export { default as selectMany } from './selectMany'

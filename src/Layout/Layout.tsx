@@ -13,16 +13,17 @@ import "../design/app/campThemeLite";
 
 const Layout = () => {
   const [username, setUsername] = useState<string>('')
-  const { user } = useGetSession()
-  const userId = user?.id
+  const { user }  = useGetSession()
+
+  const user_id: (string | null) = user
 
   useEffect (() => {
-    if(!userId) return
+    if(!user_id) return
     let didCancel = false
     const fetchName = async () => {
 
 
-      const name = await name_id(userId, 'id', 'username')
+      const name = await name_id(user_id, 'id', 'username')
       if(!didCancel)setUsername(name)
     }
     fetchName()
@@ -31,9 +32,9 @@ const Layout = () => {
       didCancel = true
     }
 
-  }, [userId])
+  }, [user_id])
 
-  const { onlineUsers }: { onlineUsers: PresenceUser[] } = usePresence(userId ?? "", username ?? "") 
+  const { onlineUsers }: { onlineUsers: PresenceUser[] } = usePresence(user_id ?? "", username ?? "") 
  
     
   return (
@@ -44,7 +45,7 @@ const Layout = () => {
     
     {onlineUsers.length === 0 && <p>オンラインのユーザがいません</p>}
     {onlineUsers.length > 0 && onlineUsers.map((user) => (
-      userId === user.userId ? (
+      user_id === user.userId ? (
         <p key={user.userId}>{user.username} (あなた)</p>
       ) : ( 
         <p key={user.userId}>{user.username}</p>
