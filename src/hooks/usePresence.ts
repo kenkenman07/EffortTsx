@@ -1,5 +1,5 @@
 // hooks/usePresence.ts
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { subscribePresence, unsubscribePresence } from "../services/presenceService"
 import type { PresenceUser } from "../types/realtime"
 import { supabase } from "../services/makeSupabase"
@@ -7,6 +7,9 @@ import { supabase } from "../services/makeSupabase"
 const usePresence = (userId: string, username: string): { onlineUsers: PresenceUser[] } => {
   const [onlineUsers, setOnlineUsers] = useState<PresenceUser[]>([])
   const [friendIds, setFriendIds] = useState<string[]>([])
+
+  const friendIdsRef = useRef<string[]>([]) 
+  useEffect(() => { friendIdsRef.current = friendIds }, [friendIds])
 
   useEffect(() => {
     if (!userId) return
@@ -29,9 +32,10 @@ const usePresence = (userId: string, username: string): { onlineUsers: PresenceU
 
     const channel = subscribePresence(userId, username, (state) => {
       // presenceState()の構造を整形
+      const friends = friendIdsRef.current
       const users: PresenceUser[] = Object.entries(state)
         .map(([userId, payloads]) => ({ userId, username: payloads[0]?.username }))
-        .filter((u) => friendIds.includes(u.userId) || u.userId === userId)
+        .filter((u) => friends.includes(u.userId) || u.userId === userId)
       setOnlineUsers(users)
     })
 
