@@ -1,6 +1,6 @@
 # Efforest -努力共有アプリ-
 
-> **コンセプト**：`ライバルを目の前に`
+> **コンセプト**：`集中したい人専用のネットワーク`
 
 [![Vercel - Main](https://img.shields.io/badge/Deploy-Main%20Branch-000?logo=vercel)](<https://effort-tsx.vercel.app/>)
 ---
