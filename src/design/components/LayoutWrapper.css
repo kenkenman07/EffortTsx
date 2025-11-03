@@ -89,7 +89,7 @@ button:disabled {
 
 /* disabledにラベルのような斜線エフェクト */
 button:disabled::after {
-  content: "×";
+  content: "";
   position: absolute;
   right: 8px;
   top: 50%;
