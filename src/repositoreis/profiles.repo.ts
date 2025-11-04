@@ -1,1 +1,1 @@
-import { supabase } from "../services/makeSupabase";
+//import { supabase } from "../services/makeSupabase";
